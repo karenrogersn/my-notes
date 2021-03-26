@@ -1,0 +1,33 @@
+@import '../../styles/variables';
+
+.navbar {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  max-width: 600px;
+  margin: 0 auto;
+  border-bottom: 1px solid #f2f2f2;
+  //   border: 1px solid orange;
+
+  .create {
+    margin-left: auto;
+
+    &--btn {
+      background: $light-red;
+      color: $white;
+      border: 0;
+      padding: 8px;
+      border-radius: 8px;
+      cursor: pointer;
+
+      //   &:hover {
+      //     background: $white;
+      //     color: $light-red;
+      //   }
+    }
+  }
+}
+
+.navbar h1 {
+  color: $light-red;
+}

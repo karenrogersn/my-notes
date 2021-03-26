@@ -34,5 +34,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "date-fns": "^2.19.0",
+    "node-sass": "^5.0.0",
+    "uuid": "^8.3.2"
   }
 }
