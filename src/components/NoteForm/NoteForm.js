@@ -2,27 +2,21 @@
 import { useState } from 'react';
 import './NoteForm.scss';
 
-const NoteForm = ({ addNote, setIsModalOpen, editNote, notesContent, currentNote }) => {
+const NoteForm = ({ saveNote, setIsModalOpen, currentNote }) => {
   // console.log(currentNote);
-  let item = currentNote[0];
-  const [title, setTitle] = useState(item.title);
-  const [subtitle, setSubtitle] = useState(item.subtitle);
-  const [body, setBody] = useState(item.body);
+  // let item = currentNote;
+  const [title, setTitle] = useState(currentNote ? currentNote.title : '');
+  const [subtitle, setSubtitle] = useState(currentNote ? currentNote.subtitle : '');
+  const [body, setBody] = useState(currentNote ? currentNote.body : '');
 
   // const [preFilledData, setPrefilledData] = useState(null);
 
   // console.log(notesContent);
 
   const submitHandler = (e) => {
+    console.log('submitting');
     e.preventDefault();
-    // if (notesContent.length) {
-    //   editNote(
-    //     notesContent.map((note) => {
-    //       return note.id;
-    //     })
-    //   );
-    // } else {
-    addNote(title, subtitle, body);
+    saveNote(title, subtitle, body);
     //}
 
     //after adding a new note, the form is blank again

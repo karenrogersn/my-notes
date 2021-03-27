@@ -11,6 +11,8 @@ const App = () => {
   //when a note is clicked it sets the state to that specific note
   const [currentNote, setCurrentNote] = useState(null);
 
+  const [readOnly, setReadOnly] = useState(true);
+
   //dummy data testing
   const [notesContent, setNotesContent] = useState([
     {
@@ -46,17 +48,20 @@ const App = () => {
     console.log('clicked');
   };
 
-  const openModalEmpty = () => {
-    console.log('open modal empty');
-    setModalIsOpen(true);
-    if (!currentNote) {
-      return;
-    }
-  };
-
   //add new note
-  const addNote = (title, subtitle, body) => {
-    setNotesContent([...notesContent, { title, subtitle, body, id: uuid() }]);
+  const saveNote = (title, subtitle, body) => {
+    if (currentNote) {
+      const noteIndex = notesContent.findIndex((item) => item == currentNote.id);
+      console.log('noteIndex', noteIndex);
+      //editing
+      // const currentNoteIndex = notesContent.findIndex(item => item === currentNote.id);
+      // setNotesContent([
+      //   ...notesContent,
+      //   notesContent[currentNoteIndex]: { title, subtitle, body }]
+      //   );
+    } else {
+      setNotesContent([...notesContent, { title, subtitle, body, id: uuid() }]);
+    }
   };
 
   //remove note
@@ -67,36 +72,43 @@ const App = () => {
 
   //edit/view note
   const editNote = (id) => {
-    console.log('note id: ', id);
-    // setNotesContent(notesContent.filter((note) => note.id === id));
+    console.log('editing', id);
+    setCurrentNote(notesContent.find((note) => note.id === id));
     setModalIsOpen(true);
+    setReadOnly(false);
   };
 
-  const setClickedNote = (id) => {
-    console.log(id);
-    console.log(currentNote);
-    setCurrentNote(notesContent.filter((note) => note.id === id));
+  const viewNote = (id) => {
+    console.log('viewing', id);
+    setCurrentNote(notesContent.find((note) => note.id === id));
     setModalIsOpen(true);
+    setReadOnly(true);
+  };
+
+  const createNote = () => {
+    setCurrentNote(null);
+    setModalIsOpen(true);
+    setReadOnly(false);
   };
 
   return (
     <div className='App'>
       <>
-        <NavBar openModalHandler={openModalHandler} openModalEmpty={openModalEmpty} />
+        <NavBar createNote={createNote} />
         <main className='content'>
           <NoteList
             notesContent={notesContent}
             removeNote={removeNote}
             editNote={editNote}
-            setClickedNote={setClickedNote}
+            viewNote={viewNote}
             openModalHandler={openModalHandler}
           />
           {modalIsOpen && (
             <Modal
               modalIsOpen={modalIsOpen}
-              addNote={addNote}
-              editNote={editNote}
-              notesContent={notesContent}
+              setIsModalOpen={setModalIsOpen}
+              saveNote={saveNote}
+              readOnly={readOnly}
               currentNote={currentNote}
               closeModalHandler={closeModalHandler}
             />

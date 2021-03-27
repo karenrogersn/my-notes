@@ -8,15 +8,12 @@ import Note from '../Note/Note';
 const Modal = ({
   modalIsOpen,
   setIsModalOpen,
-  addNote,
+  saveNote,
   editNote,
-  notesContent,
   currentNote,
-  closeModalHandler
+  closeModalHandler,
+  readOnly
 }) => {
-  // const [editMode, setEditMode] = useState(currentNote);
-  const [readOnly, setReadOnly] = useState(true);
-
   console.log('currentNote in modal', currentNote);
   return (
     <>
@@ -30,10 +27,9 @@ const Modal = ({
           <Note currentNote={currentNote} />
         ) : (
           <NoteForm
-            addNote={addNote}
+            saveNote={saveNote}
             setIsModalOpen={setIsModalOpen}
-            editNote={editNote}
-            notesContent={notesContent}
+            // notesContent={notesContent}
             currentNote={currentNote}
           />
         )}

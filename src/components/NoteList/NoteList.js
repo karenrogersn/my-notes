@@ -2,25 +2,19 @@ import Icons from '../IconComponent/Icons';
 import NoteCard from '../NoteCard/NoteCard';
 import './NoteList.scss';
 
-const NoteList = ({ notesContent, removeNote, editNote, setClickedNote, openModalHandler }) => {
+const NoteList = ({ notesContent, removeNote, editNote, viewNote, openModalHandler }) => {
   // editNote
   // console.log(notesContent, 'notesContent');
   return (
     <div className='note-list'>
       {notesContent.map((note) => (
-        <NoteCard
-          key={note.id}
-          note={note}
-          notesContent={notesContent}
-          setClickedNote={setClickedNote}
-        >
+        <NoteCard key={note.id} note={note} notesContent={notesContent} viewNote={viewNote}>
           <h3>{note.title}</h3>
           <p>{note.subtitle}</p>
           <Icons
             removeNote={removeNote}
             editNote={editNote}
             note={note}
-            setClickedNote={setClickedNote}
             openModalHandler={openModalHandler}
           />
           {/* <div className='note-list__icons'>
