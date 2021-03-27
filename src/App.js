@@ -8,6 +8,9 @@ import uuid from 'uuid/v1';
 
 const App = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  //when a note is clicked it sets the state to that specific note
+  const [currentNote, setCurrentNote] = useState(null);
+
   //dummy data testing
   const [notesContent, setNotesContent] = useState([
     {
@@ -33,9 +36,22 @@ const App = () => {
     }
   ]);
 
+  const closeModalHandler = () => {
+    setModalIsOpen(false);
+  };
+
   //send information when opening the modal
   const openModalHandler = () => {
     setModalIsOpen(true);
+    console.log('clicked');
+  };
+
+  const openModalEmpty = () => {
+    console.log('open modal empty');
+    setModalIsOpen(true);
+    if (!currentNote) {
+      return;
+    }
   };
 
   //add new note
@@ -45,24 +61,45 @@ const App = () => {
 
   //remove note
   const removeNote = (id) => {
-    console.log('note removed');
+    console.log('note removed', id);
     setNotesContent(notesContent.filter((note) => note.id !== id));
   };
 
-  //edit note
-  // const editNote = (id) => {
-  //   console.log('note id: ', id);
-  //   setNotesContent(notesContent.filter((note) => note.id === id));
-  // };
+  //edit/view note
+  const editNote = (id) => {
+    console.log('note id: ', id);
+    // setNotesContent(notesContent.filter((note) => note.id === id));
+    setModalIsOpen(true);
+  };
+
+  const setClickedNote = (id) => {
+    console.log(id);
+    console.log(currentNote);
+    setCurrentNote(notesContent.filter((note) => note.id === id));
+    setModalIsOpen(true);
+  };
 
   return (
     <div className='App'>
       <>
-        <NavBar openModalHandler={openModalHandler} />
+        <NavBar openModalHandler={openModalHandler} openModalEmpty={openModalEmpty} />
         <main className='content'>
-          <NoteList notesContent={notesContent} removeNote={removeNote} /*editNote={editNote} */ />
+          <NoteList
+            notesContent={notesContent}
+            removeNote={removeNote}
+            editNote={editNote}
+            setClickedNote={setClickedNote}
+            openModalHandler={openModalHandler}
+          />
           {modalIsOpen && (
-            <Modal modalIsOpen={modalIsOpen} setIsModalOpen={setModalIsOpen} addNote={addNote} />
+            <Modal
+              modalIsOpen={modalIsOpen}
+              addNote={addNote}
+              editNote={editNote}
+              notesContent={notesContent}
+              currentNote={currentNote}
+              closeModalHandler={closeModalHandler}
+            />
           )}
         </main>
       </>

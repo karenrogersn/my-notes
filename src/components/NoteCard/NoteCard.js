@@ -1,8 +1,8 @@
 import './NoteCard.scss';
 
-const NoteCard = ({ children }) => {
+const NoteCard = ({ children, setClickedNote, note }) => {
   return (
-    <article className='note-preview' onClick={() => console.log('clicked')}>
+    <article className='note-preview' onClick={(e) => setClickedNote(note.id, e.stopPropagation())}>
       {children}
     </article>
   );

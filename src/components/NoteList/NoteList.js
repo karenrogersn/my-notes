@@ -1,31 +1,40 @@
+import Icons from '../IconComponent/Icons';
 import NoteCard from '../NoteCard/NoteCard';
 import './NoteList.scss';
 
-//assets
-import rubish from '../../imgs/trash.png';
-import pencil from '../../imgs/pencil.png';
-
-const NoteList = ({ notesContent, removeNote }) => {
+const NoteList = ({ notesContent, removeNote, editNote, setClickedNote, openModalHandler }) => {
   // editNote
-  console.log(notesContent);
+  // console.log(notesContent, 'notesContent');
   return (
     <div className='note-list'>
       {notesContent.map((note) => (
-        <NoteCard key={note.id} notesContent={notesContent}>
+        <NoteCard
+          key={note.id}
+          note={note}
+          notesContent={notesContent}
+          setClickedNote={setClickedNote}
+        >
           <h3>{note.title}</h3>
           <p>{note.subtitle}</p>
-          <div className='note-list__icons'>
+          <Icons
+            removeNote={removeNote}
+            editNote={editNote}
+            note={note}
+            setClickedNote={setClickedNote}
+            openModalHandler={openModalHandler}
+          />
+          {/* <div className='note-list__icons'>
             <img
               src={pencil}
-              alt='edit icon'
-              //   /*onClick={(e) => editNote(note.id, e.stopPropagation())}*/
+              alt='edit icon' */}
+          {/* onClick={(e) => editNote(note.id, e.stopPropagation())}
             />
             <img
               src={rubish}
               alt='delete icon'
               onClick={(e) => removeNote(note.id, e.stopPropagation())}
             />
-          </div>
+          </div> */}
         </NoteCard>
       ))}
     </div>

@@ -2,14 +2,28 @@
 import { useState } from 'react';
 import './NoteForm.scss';
 
-const NoteForm = ({ addNote, setIsModalOpen }) => {
-  const [title, setTitle] = useState('');
-  const [subtitle, setSubtitle] = useState('');
-  const [body, setBody] = useState('');
+const NoteForm = ({ addNote, setIsModalOpen, editNote, notesContent, currentNote }) => {
+  // console.log(currentNote);
+  let item = currentNote[0];
+  const [title, setTitle] = useState(item.title);
+  const [subtitle, setSubtitle] = useState(item.subtitle);
+  const [body, setBody] = useState(item.body);
+
+  // const [preFilledData, setPrefilledData] = useState(null);
+
+  // console.log(notesContent);
 
   const submitHandler = (e) => {
     e.preventDefault();
+    // if (notesContent.length) {
+    //   editNote(
+    //     notesContent.map((note) => {
+    //       return note.id;
+    //     })
+    //   );
+    // } else {
     addNote(title, subtitle, body);
+    //}
 
     //after adding a new note, the form is blank again
     setTitle('');
@@ -48,7 +62,7 @@ const NoteForm = ({ addNote, setIsModalOpen }) => {
           value={body}
           onChange={(e) => setBody(e.target.value)}
         ></textarea>
-        <input type='submit' value='Add note' />
+        <input type='submit' value='Save' />
       </form>
     </div>
   );
