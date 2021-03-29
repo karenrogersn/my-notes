@@ -15,8 +15,6 @@ const App = () => {
   //when a note is clicked it sets the state to that specific note
   const [currentNote, setCurrentNote] = useState(null);
 
-  // console.log('currentNote', currentNote);
-
   const [readOnly, setReadOnly] = useState(true);
 
   //dummy data testing
@@ -45,8 +43,7 @@ const App = () => {
   ]);
 
   let now = new Date();
-  let formattedDate = format(now, 'EEEE do LLLL yyyy');
-  // console.log(formattedDate);
+  let formattedDate = format(now, `EEEE, do LLLL, yyyy h:mm`);
 
   const closeModalHandler = () => {
     setModalIsOpen(false);
@@ -62,7 +59,6 @@ const App = () => {
   const saveNote = (title, subtitle, body) => {
     if (currentNote) {
       //editing
-
       const updatedNotes = notesContent.map((note) => {
         //for each note in the array, just return the unchaged note
         const editedNote = { ...note };

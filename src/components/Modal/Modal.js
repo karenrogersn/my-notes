@@ -13,7 +13,8 @@ const Modal = ({
   currentNote,
   closeModalHandler,
   readOnly,
-  formattedDate
+  formattedDate,
+  removeNote
 }) => {
   // console.log('currentNote in modal', currentNote);
   return (
@@ -25,14 +26,15 @@ const Modal = ({
       />
       <div className='modal'>
         {readOnly ? (
-          <Note currentNote={currentNote} formattedDate={formattedDate} />
-        ) : (
-          <NoteForm
-            saveNote={saveNote}
-            setIsModalOpen={setIsModalOpen}
-            // notesContent={notesContent}
+          <Note
             currentNote={currentNote}
+            formattedDate={formattedDate}
+            removeNote={removeNote}
+            editNote={editNote}
+            note={currentNote}
           />
+        ) : (
+          <NoteForm saveNote={saveNote} setIsModalOpen={setIsModalOpen} currentNote={currentNote} />
         )}
       </div>
     </>

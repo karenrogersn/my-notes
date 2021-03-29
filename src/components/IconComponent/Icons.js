@@ -2,7 +2,6 @@
 import rubish from '../../imgs/trash.png';
 import pencil from '../../imgs/pencil.png';
 
-//
 
 const Icons = ({ removeNote, editNote, note }) => {
   return (

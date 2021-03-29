@@ -1,8 +1,10 @@
 import { useState } from 'react';
+
 import './App.scss';
 import Modal from './components/Modal/Modal';
 import NavBar from './components/NavBar/NavBar';
 import NoteList from './components/NoteList/NoteList';
+import useLocalStorage from './hooks/useLocalStorage';
 
 //date-fns library
 import { format } from 'date-fns';
@@ -15,12 +17,10 @@ const App = () => {
   //when a note is clicked it sets the state to that specific note
   const [currentNote, setCurrentNote] = useState(null);
 
-  // console.log('currentNote', currentNote);
-
   const [readOnly, setReadOnly] = useState(true);
 
   //dummy data testing
-  const [notesContent, setNotesContent] = useState([
+  const [notesContent, setNotesContent] = useLocalStorage('notes', [
     {
       title: 'Name Of The Wind',
       subtitle: 'Patrick Rothfuss',
@@ -46,7 +46,6 @@ const App = () => {
 
   let now = new Date();
   let formattedDate = format(now, `EEEE, do LLLL, yyyy h:mm`);
-  // console.log(formattedDate);
 
   const closeModalHandler = () => {
     setModalIsOpen(false);
@@ -62,7 +61,6 @@ const App = () => {
   const saveNote = (title, subtitle, body) => {
     if (currentNote) {
       //editing
-
       const updatedNotes = notesContent.map((note) => {
         //for each note in the array, just return the unchaged note
         const editedNote = { ...note };
@@ -87,6 +85,9 @@ const App = () => {
   const removeNote = (id) => {
     console.log('note removed', id);
     setNotesContent(notesContent.filter((note) => note.id !== id));
+    if (modalIsOpen) {
+      setModalIsOpen(false);
+    }
   };
 
   //edit/view note
@@ -133,6 +134,8 @@ const App = () => {
               currentNote={currentNote}
               closeModalHandler={closeModalHandler}
               formattedDate={formattedDate}
+              removeNote={removeNote}
+              editNote={editNote}
             />
           )}
         </main>
