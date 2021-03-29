@@ -5,7 +5,7 @@ const NavBar = ({ createNote }) => {
     <nav className='navbar'>
       <h1>My Notes app</h1>
       <div className='create'>
-        <button className='create--btn' onClick={createNote}>
+        <button className='create__btn' onClick={createNote}>
           New Note
         </button>
       </div>

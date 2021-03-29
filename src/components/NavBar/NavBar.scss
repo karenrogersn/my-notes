@@ -8,26 +8,23 @@
   margin: 0 auto;
   border-bottom: 1px solid #f2f2f2;
   //   border: 1px solid orange;
-
+  h1 {
+    color: $light-red;
+  }
   .create {
     margin-left: auto;
 
-    &--btn {
+    &__btn {
       background: $light-red;
       color: $white;
       border: 0;
       padding: 8px;
       border-radius: 8px;
       cursor: pointer;
-
-      //   &:hover {
-      //     background: $white;
-      //     color: $light-red;
-      //   }
+      outline: none;
+      &:active {
+        font-weight: bold;
+      }
     }
   }
-}
-
-.navbar h1 {
-  color: $light-red;
 }

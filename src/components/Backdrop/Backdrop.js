@@ -5,7 +5,6 @@ const Backdrop = ({ modalIsOpen, setIsModalOpen, closeModalHandler }) => {
   const escKeyDown = (e) => {
     if (modalIsOpen) {
       if (e.key !== 'Escape') return;
-      // setIsModalOpen(!modalIsOpen);
       closeModalHandler();
     }
   };
@@ -19,9 +18,6 @@ const Backdrop = ({ modalIsOpen, setIsModalOpen, closeModalHandler }) => {
   });
 
   return modalIsOpen ? <div className='backdrop' onClick={closeModalHandler}></div> : null;
-  // return modalIsOpen ? (
-  //   <div className='backdrop' onClick={() => setIsModalOpen(false)}></div>
-  // ) : null;
 };
 
 export default Backdrop;

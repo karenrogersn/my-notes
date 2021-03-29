@@ -6,8 +6,8 @@ import NavBar from './components/NavBar/NavBar';
 import NoteList from './components/NoteList/NoteList';
 import useLocalStorage from './hooks/useLocalStorage';
 
-//date-fns library
-import { format } from 'date-fns';
+// //date-fns library
+// import { format, formatDistance } from 'date-fns';
 
 //id generator
 import uuid from 'uuid/v1';
@@ -22,43 +22,44 @@ const App = () => {
   //dummy data testing
   const [notesContent, setNotesContent] = useLocalStorage('notes', [
     {
-      title: 'Name Of The Wind',
-      subtitle: 'Patrick Rothfuss',
-      body:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium, quod. Iure amet consequuntur consequatur hic ullam illum deserunt dicta dolorem enim quaerat, odit deleniti aliquid doloribus veniam voluptatibus eligendi ab.',
+      title: '', //Name Of The Wind
+      subtitle: '', //Patrick Rothfuss
+      // body:
+      //   'Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium, quod. Iure amet consequuntur consequatur hic ullam illum deserunt dicta dolorem enim quaerat, odit deleniti aliquid doloribus veniam voluptatibus eligendi ab.',
+      text: '',
       id: 1
     },
     {
-      title: 'The Final Empire',
-      subtitle: 'Brandon Sanderson',
-      body:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat, maiores. Sequi iusto id autem alias, expedita at dolore explicabo nostrum doloremque error molestias qui corporis possimus iste ipsa illo voluptatibus..',
-      id: 2
+      title: '', //The Final Empire
+      subtitle: '', //Brandon Sanderson
+      // body:
+      //   'Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat, maiores. Sequi iusto id autem alias, expedita at dolore explicabo nostrum doloremque error molestias qui corporis possimus iste ipsa illo voluptatibus..',
+      id: 2,
+      text: ''
     },
     {
-      title: 'The Final Empire2',
-      subtitle: 'Brandon Sanderson',
-      body:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro tempore soluta pariatur nostrum sit quod accusantium, error ducimus sunt ipsam alias blanditiis provident doloribus assumenda? Harum assumenda aliquam ipsa placeat.',
+      title: '', //The Final Empire2
+      subtitle: '', //Brandon Sanderson
+      // body:
+      //   'Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro tempore soluta pariatur nostrum sit quod accusantium, error ducimus sunt ipsam alias blanditiis provident doloribus assumenda? Harum assumenda aliquam ipsa placeat.',
+      text: '',
       id: 3
     }
   ]);
 
-  let now = new Date();
-  let formattedDate = format(now, `EEEE, do LLLL, yyyy h:mm`);
+  // let now = new Date();
+  // let time = format(now, `h:mm`);
+  // let day = format(now, `EEEE do LLLL, yyyy`);
+  // let formattedDate = `${time} on ${day}`;
 
   const closeModalHandler = () => {
     setModalIsOpen(false);
   };
 
-  //send information when opening the modal
-  const openModalHandler = () => {
-    setModalIsOpen(true);
-    console.log('clicked');
-  };
-
   //add new note
-  const saveNote = (title, subtitle, body) => {
+  const saveNote = (title, subtitle, text, lastUpdate) => {
+    //getting the time
+
     if (currentNote) {
       //editing
       const updatedNotes = notesContent.map((note) => {
@@ -68,22 +69,24 @@ const App = () => {
         if (note.id === currentNote.id) {
           editedNote.title = title;
           editedNote.subtitle = subtitle;
-          editedNote.body = body;
+          editedNote.text = text;
         }
+        // console.log('editedNote', editedNote);
         return editedNote;
       });
       setNotesContent(updatedNotes);
     } else {
       setNotesContent([
         ...notesContent,
-        { title, subtitle, body, id: uuid(), updated_at: formattedDate }
+        { title, subtitle, text, id: uuid(), updated_at: lastUpdate }
       ]);
     }
+    console.log('creating new note');
   };
 
   //remove note
   const removeNote = (id) => {
-    console.log('note removed', id);
+    // console.log('note removed', id);
     setNotesContent(notesContent.filter((note) => note.id !== id));
     if (modalIsOpen) {
       setModalIsOpen(false);
@@ -92,7 +95,7 @@ const App = () => {
 
   //edit/view note
   const editNote = (id) => {
-    // console.log('editing', id);
+    console.log('editing', id);
     setCurrentNote(notesContent.find((note) => note.id === id));
     setModalIsOpen(true);
     setReadOnly(false);
@@ -123,7 +126,6 @@ const App = () => {
             removeNote={removeNote}
             editNote={editNote}
             viewNote={viewNote}
-            openModalHandler={openModalHandler}
           />
           {modalIsOpen && (
             <Modal
@@ -133,7 +135,7 @@ const App = () => {
               readOnly={readOnly}
               currentNote={currentNote}
               closeModalHandler={closeModalHandler}
-              formattedDate={formattedDate}
+              //formattedDate={formattedDate}
               removeNote={removeNote}
               editNote={editNote}
             />

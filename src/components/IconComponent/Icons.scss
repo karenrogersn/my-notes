@@ -1,0 +1,25 @@
+//smaller icons' size for note card
+.normalIconClass {
+  opacity: 0;
+  transition: opacity ease-in-out 0.25s;
+  //   border: 1px solid green;
+
+  &:hover {
+    opacity: 1;
+  }
+  & img {
+    max-width: 18px;
+    padding: 5px 8px;
+    cursor: pointer;
+  }
+}
+
+//bigger icons' size for note
+.largeIconClass {
+  opacity: 1;
+  & img {
+    max-width: 28px;
+    padding: 5px 8px;
+    cursor: pointer;
+  }
+}

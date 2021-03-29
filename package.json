@@ -36,7 +36,9 @@
     ]
   },
   "devDependencies": {
+    "bootstrap": "^4.6.0",
     "date-fns": "^2.19.0",
+    "marked": "^2.0.1",
     "node-sass": "^5.0.0",
     "uuid": "^8.3.2"
   }

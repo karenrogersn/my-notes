@@ -5,13 +5,12 @@ const Note = ({ currentNote, formattedDate, removeNote, editNote, note }) => {
   //   console.log('currentNote in Note', currentNote);
   //   let item = currentNote;
   return (
-    <div>
-      <h3>{currentNote.title}</h3>
-      <h4>{currentNote.subtitle}</h4>
-      <p>{currentNote.body}</p>
-      <p>Updated at: {formattedDate}</p>
-
-      <div style={{ border: '1px solid blue' }}>
+    <div className='note-container'>
+      <h2>{currentNote.title}</h2>
+      <h3>{currentNote.subtitle}</h3>
+      <div className='markup-conainer'>{currentNote.text}</div>
+      <p>Updated at {formattedDate}</p>
+      <div className='icons-wrapper'>
         <Icons removeNote={removeNote} editNote={editNote} note={note} />
       </div>
     </div>

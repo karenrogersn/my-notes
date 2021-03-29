@@ -5,6 +5,9 @@ import NoteForm from '../NoteForm/NoteForm';
 import Backdrop from '../Backdrop/Backdrop';
 import Note from '../Note/Note';
 
+//date-fns library
+import { format, formatDistance, distanceInWordsToNow } from 'date-fns';
+
 const Modal = ({
   modalIsOpen,
   setIsModalOpen,
@@ -13,9 +16,14 @@ const Modal = ({
   currentNote,
   closeModalHandler,
   readOnly,
-  formattedDate,
+  //formattedDate,
   removeNote
 }) => {
+  let now = new Date();
+  let time = format(now, `h:mm`);
+  let day = format(now, `EEEE do LLLL, yyyy`);
+  let formattedDate = `${time} on ${day}`;
+
   // console.log('currentNote in modal', currentNote);
   return (
     <>
@@ -34,7 +42,12 @@ const Modal = ({
             note={currentNote}
           />
         ) : (
-          <NoteForm saveNote={saveNote} setIsModalOpen={setIsModalOpen} currentNote={currentNote} />
+          <NoteForm
+            saveNote={saveNote}
+            setIsModalOpen={setIsModalOpen}
+            currentNote={currentNote}
+            formattedDate={formattedDate}
+          />
         )}
       </div>
     </>
