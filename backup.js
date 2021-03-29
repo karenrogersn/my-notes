@@ -45,7 +45,7 @@ const App = () => {
   ]);
 
   let now = new Date();
-  let formattedDate = format(now, `EEEE, do LLLL, yyyy h:mm`);
+  let formattedDate = format(now, 'EEEE do LLLL yyyy');
   // console.log(formattedDate);
 
   const closeModalHandler = () => {

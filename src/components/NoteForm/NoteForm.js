@@ -3,15 +3,9 @@ import { useState } from 'react';
 import './NoteForm.scss';
 
 const NoteForm = ({ saveNote, setIsModalOpen, currentNote }) => {
-  // console.log(currentNote);
-  // let item = currentNote;
   const [title, setTitle] = useState(currentNote ? currentNote.title : '');
   const [subtitle, setSubtitle] = useState(currentNote ? currentNote.subtitle : '');
   const [body, setBody] = useState(currentNote ? currentNote.body : '');
-
-  // const [preFilledData, setPrefilledData] = useState(null);
-
-  // console.log(notesContent);
 
   const submitHandler = (e) => {
     console.log('submitting');
@@ -58,6 +52,7 @@ const NoteForm = ({ saveNote, setIsModalOpen, currentNote }) => {
         ></textarea>
         <input type='submit' value='Save' />
       </form>
+      {/* <p>{title}</p> */}
     </div>
   );
 };

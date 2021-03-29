@@ -1,4 +1,4 @@
-import { useState } from 'react';
+// import { useState } from 'react';
 
 import './Modal.scss';
 import NoteForm from '../NoteForm/NoteForm';
@@ -12,9 +12,10 @@ const Modal = ({
   editNote,
   currentNote,
   closeModalHandler,
-  readOnly
+  readOnly,
+  formattedDate
 }) => {
-  console.log('currentNote in modal', currentNote);
+  // console.log('currentNote in modal', currentNote);
   return (
     <>
       <Backdrop
@@ -24,7 +25,7 @@ const Modal = ({
       />
       <div className='modal'>
         {readOnly ? (
-          <Note currentNote={currentNote} />
+          <Note currentNote={currentNote} formattedDate={formattedDate} />
         ) : (
           <NoteForm
             saveNote={saveNote}
