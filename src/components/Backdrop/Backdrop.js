@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import './Backdrop.scss';
 
 const Backdrop = ({ modalIsOpen, setIsModalOpen, closeModalHandler }) => {
+  //closing the modal when Esc key is pressed
   const escKeyDown = (e) => {
     if (modalIsOpen) {
       if (e.key !== 'Escape') return;

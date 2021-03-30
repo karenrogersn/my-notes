@@ -6,8 +6,8 @@ import NavBar from './components/NavBar/NavBar';
 import NoteList from './components/NoteList/NoteList';
 import useLocalStorage from './hooks/useLocalStorage';
 
-// //date-fns library
-// import { format, formatDistance } from 'date-fns';
+//date-fns library
+import { format } from 'date-fns';
 
 //id generator
 import uuid from 'uuid/v1';
@@ -19,47 +19,20 @@ const App = () => {
 
   const [readOnly, setReadOnly] = useState(true);
 
-  //dummy data testing
-  const [notesContent, setNotesContent] = useLocalStorage('notes', [
-    {
-      title: '', //Name Of The Wind
-      subtitle: '', //Patrick Rothfuss
-      // body:
-      //   'Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium, quod. Iure amet consequuntur consequatur hic ullam illum deserunt dicta dolorem enim quaerat, odit deleniti aliquid doloribus veniam voluptatibus eligendi ab.',
-      text: '',
-      id: 1
-    },
-    {
-      title: '', //The Final Empire
-      subtitle: '', //Brandon Sanderson
-      // body:
-      //   'Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat, maiores. Sequi iusto id autem alias, expedita at dolore explicabo nostrum doloremque error molestias qui corporis possimus iste ipsa illo voluptatibus..',
-      id: 2,
-      text: ''
-    },
-    {
-      title: '', //The Final Empire2
-      subtitle: '', //Brandon Sanderson
-      // body:
-      //   'Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro tempore soluta pariatur nostrum sit quod accusantium, error ducimus sunt ipsam alias blanditiis provident doloribus assumenda? Harum assumenda aliquam ipsa placeat.',
-      text: '',
-      id: 3
-    }
-  ]);
-
-  // let now = new Date();
-  // let time = format(now, `h:mm`);
-  // let day = format(now, `EEEE do LLLL, yyyy`);
-  // let formattedDate = `${time} on ${day}`;
+  const [notesContent, setNotesContent] = useLocalStorage('notes', []);
 
   const closeModalHandler = () => {
     setModalIsOpen(false);
   };
 
-  //add new note
-  const saveNote = (title, subtitle, text, lastUpdate) => {
-    //getting the time
+  //getting dates
+  // const formattedDate = format(new Date(), 'EEEE do LLLL yyyy');
+  const time = format(new Date(), `h:mm`);
+  const day = format(new Date(), `EEEE do LLLL, yyyy`);
+  const formattedDate = `${time} on ${day}`;
 
+  //add new note
+  const saveNote = (title, subtitle, text) => {
     if (currentNote) {
       //editing
       const updatedNotes = notesContent.map((note) => {
@@ -71,41 +44,15 @@ const App = () => {
           editedNote.subtitle = subtitle;
           editedNote.text = text;
         }
-        // console.log('editedNote', editedNote);
         return editedNote;
       });
       setNotesContent(updatedNotes);
     } else {
       setNotesContent([
         ...notesContent,
-        { title, subtitle, text, id: uuid(), updated_at: lastUpdate }
+        { title, subtitle, text, id: uuid(), updated_at: formattedDate }
       ]);
     }
-    console.log('creating new note');
-  };
-
-  //remove note
-  const removeNote = (id) => {
-    // console.log('note removed', id);
-    setNotesContent(notesContent.filter((note) => note.id !== id));
-    if (modalIsOpen) {
-      setModalIsOpen(false);
-    }
-  };
-
-  //edit/view note
-  const editNote = (id) => {
-    console.log('editing', id);
-    setCurrentNote(notesContent.find((note) => note.id === id));
-    setModalIsOpen(true);
-    setReadOnly(false);
-  };
-
-  const viewNote = (id) => {
-    console.log('viewing', id);
-    setCurrentNote(notesContent.find((note) => note.id === id));
-    setModalIsOpen(true);
-    setReadOnly(true);
   };
 
   const createNote = () => {
@@ -114,7 +61,50 @@ const App = () => {
     setReadOnly(false);
   };
 
-  // console.log(notesContent);
+  const removeNote = (id) => {
+    setNotesContent(notesContent.filter((note) => note.id !== id));
+    if (modalIsOpen) {
+      setModalIsOpen(false);
+    }
+  };
+
+  const editNote = (id) => {
+    setCurrentNote(notesContent.find((note) => note.id === id));
+    setModalIsOpen(true);
+    setReadOnly(false);
+  };
+
+  const viewNote = (id) => {
+    setCurrentNote(notesContent.find((note) => note.id === id));
+    setModalIsOpen(true);
+    setReadOnly(true);
+  };
+
+  //callback
+  // const findNote = (id) => {
+  //   setCurrentNote(notesContent.find((note) => note.id === id));
+  //   setModalIsOpen(true);
+  // };
+
+  // const editNote = (findeNote) => {
+  //   console.log('editing note');
+  //   if (notesContent) {
+  //     notesContent.map((note) => {
+  //       return findNote(note.id);
+  //     });
+  //   }
+  //   setReadOnly(false);
+  // };
+
+  // const viewNote = (findeNote) => {
+  //   console.log('viewing note');
+  //   if (notesContent) {
+  //     notesContent.map((note) => {
+  //       return findNote(note.id);
+  //     });
+  //   }
+  //   setReadOnly(true);
+  // };
 
   return (
     <div className='App'>
@@ -135,10 +125,16 @@ const App = () => {
               readOnly={readOnly}
               currentNote={currentNote}
               closeModalHandler={closeModalHandler}
-              //formattedDate={formattedDate}
+              notesContent={notesContent}
               removeNote={removeNote}
               editNote={editNote}
+              formattedDate={formattedDate}
             />
+          )}
+          {!notesContent.length ? (
+            <div className='empty'>You haven't written any notes yet :(</div>
+          ) : (
+            ''
           )}
         </main>
       </>
@@ -147,4 +143,3 @@ const App = () => {
 };
 
 export default App;
-//

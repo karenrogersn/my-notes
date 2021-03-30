@@ -3,7 +3,7 @@
 .note-preview {
   padding: 8px 16px;
   margin: 10px 0;
-  border-bottom: 1px solid #fafafa;
+  border-bottom: 1px solid $shade-light;
   cursor: pointer;
   &:hover {
     box-shadow: 1px 3px 5px rgba($black, 0.1);

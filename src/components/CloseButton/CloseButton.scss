@@ -1,0 +1,28 @@
+@import '../../styles/variables';
+
+.close-btn {
+  display: flex;
+  justify-content: flex-end;
+  button {
+    color: $grey-light;
+    height: 40px;
+    width: 40px;
+    font-size: 2rem;
+    text-align: center;
+    vertical-align: middle;
+    padding: 0px;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background-color: transparent;
+
+    &:hover {
+      color: $charcoal;
+      transition: color ease-in-out 0.35s;
+    }
+    &:active {
+      font-weight: 500;
+      transform: scale(1.2);
+    }
+  }
+}

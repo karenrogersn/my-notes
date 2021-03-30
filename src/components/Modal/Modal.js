@@ -1,12 +1,8 @@
-// import { useState } from 'react';
-
 import './Modal.scss';
 import NoteForm from '../NoteForm/NoteForm';
 import Backdrop from '../Backdrop/Backdrop';
 import Note from '../Note/Note';
-
-//date-fns library
-import { format, formatDistance, distanceInWordsToNow } from 'date-fns';
+import CloseButton from '../CloseButton/CloseButton';
 
 const Modal = ({
   modalIsOpen,
@@ -16,15 +12,10 @@ const Modal = ({
   currentNote,
   closeModalHandler,
   readOnly,
-  //formattedDate,
-  removeNote
+  notesContent,
+  removeNote,
+  formattedDate
 }) => {
-  let now = new Date();
-  let time = format(now, `h:mm`);
-  let day = format(now, `EEEE do LLLL, yyyy`);
-  let formattedDate = `${time} on ${day}`;
-
-  // console.log('currentNote in modal', currentNote);
   return (
     <>
       <Backdrop
@@ -33,21 +24,17 @@ const Modal = ({
         closeModalHandler={closeModalHandler}
       />
       <div className='modal'>
+        <CloseButton closeModalHandler={closeModalHandler} />
         {readOnly ? (
           <Note
-            currentNote={currentNote}
             formattedDate={formattedDate}
             removeNote={removeNote}
             editNote={editNote}
+            notesContent={notesContent}
             note={currentNote}
           />
         ) : (
-          <NoteForm
-            saveNote={saveNote}
-            setIsModalOpen={setIsModalOpen}
-            currentNote={currentNote}
-            formattedDate={formattedDate}
-          />
+          <NoteForm saveNote={saveNote} setIsModalOpen={setIsModalOpen} currentNote={currentNote} />
         )}
       </div>
     </>

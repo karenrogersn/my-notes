@@ -6,16 +6,15 @@
   align-items: center;
   max-width: 600px;
   margin: 0 auto;
-  border-bottom: 1px solid #f2f2f2;
-  //   border: 1px solid orange;
+  border-bottom: 1px solid $grey-lighter;
   h1 {
-    color: $light-red;
+    color: $red-light;
   }
   .create {
     margin-left: auto;
 
-    &__btn {
-      background: $light-red;
+    button {
+      background: $red-light;
       color: $white;
       border: 0;
       padding: 8px;

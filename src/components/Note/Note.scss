@@ -2,7 +2,6 @@
 
 .note-container {
   padding: 10px 20px;
-  //   border: 1px solid green;
   max-width: 700px;
   width: 100%;
   text-align: center;
@@ -20,7 +19,7 @@
     width: 100%;
   }
   h2 {
-    color: $light-red;
+    color: $red-light;
   }
   p {
     font-size: 14px;
@@ -37,6 +36,4 @@
 
 .icons-wrapper {
   margin: 20px 0;
-  //   width: 100%;
-  //   border: 1px solid red;
 }

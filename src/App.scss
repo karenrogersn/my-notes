@@ -14,17 +14,16 @@
 }
 
 .content {
-  // border: 1px solid blue;
   max-width: 600px;
   margin: 40px auto;
   padding: 20px;
 }
 
-// @keyframes App-logo-spin {
-//   from {
-//     transform: rotate(0deg);
-//   }
-//   to {
-//     transform: rotate(360deg);
-//   }
-// }
+.empty {
+  margin: 20px;
+  padding: 20px;
+  text-align: center;
+  color: $charcoal;
+  font-weight: bold;
+  box-shadow: 1px 3px 5px rgba($black, 0.1);
+}

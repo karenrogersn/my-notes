@@ -1,25 +1,20 @@
-//new note form
 import { useState } from 'react';
 import './NoteForm.scss';
 import marked from 'marked';
 import { sampleText } from './sampleText';
 
-const NoteForm = ({ saveNote, setIsModalOpen, currentNote, formattedDate }) => {
+const NoteForm = ({ saveNote, setIsModalOpen, currentNote }) => {
   const [title, setTitle] = useState(currentNote ? currentNote.title : '');
   const [subtitle, setSubtitle] = useState(currentNote ? currentNote.subtitle : '');
   const [text, setText] = useState(currentNote ? currentNote.text : sampleText);
 
   const submitHandler = (e) => {
-    // console.log('submitting');
     e.preventDefault();
-    saveNote(title, subtitle, text, formattedDate);
-
-    // console.log(formattedDate);
+    saveNote(title, subtitle, text);
 
     //after adding a new note, the form is blank again
     setTitle('');
     setSubtitle('');
-    // setBody('');
     setText('');
     setIsModalOpen(false);
   };
@@ -62,7 +57,7 @@ const NoteForm = ({ saveNote, setIsModalOpen, currentNote, formattedDate }) => {
                 onChange={(e) => setText(e.target.value)}
                 value={text}
                 className='form-control'
-                rows='30'
+                rows='25'
               />
             </div>
             <div className='col-sm-6 row__div'>
