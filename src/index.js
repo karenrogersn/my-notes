@@ -3,9 +3,22 @@ import ReactDOM from 'react-dom';
 import './index.scss';
 import App from './App';
 
+//importing createStoreFunction from redux
+import { createStore } from 'redux';
+
+//importing helper Provider component to hook up React & Redux
+import { Provider } from 'react-redux';
+
+import reducer from './store/reducers/noteContentReducer';
+
+// creating store & calling the createStore function and passing the rootReducer as arg
+const myStore = createStore(reducer);
+
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={myStore}>
+      <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );

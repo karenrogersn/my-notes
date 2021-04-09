@@ -5,7 +5,7 @@ import Modal from './components/Modal/Modal';
 import NavBar from './components/NavBar/NavBar';
 import NoteList from './components/NoteList/NoteList';
 import useLocalStorage from './hooks/useLocalStorage';
-
+import { useSelector } from 'react-redux';
 //date-fns library
 import { format } from 'date-fns';
 
@@ -13,6 +13,7 @@ import { format } from 'date-fns';
 import uuid from 'uuid/v1';
 
 const App = () => {
+  //local UI state managed within the component. Don't need to use the global state that redux provides for this.
   const [modalIsOpen, setModalIsOpen] = useState(false);
   //when a note is clicked it sets the state to that specific note
   const [currentNote, setCurrentNote] = useState(null);
@@ -106,6 +107,8 @@ const App = () => {
   //   setReadOnly(true);
   // };
 
+  const state = useSelector((state) => state);
+  console.log(state.modalIsOpen);
   return (
     <div className='App'>
       <>
@@ -117,7 +120,7 @@ const App = () => {
             editNote={editNote}
             viewNote={viewNote}
           />
-          {modalIsOpen && (
+          {state.modalIsOpen && (
             <Modal
               modalIsOpen={modalIsOpen}
               setIsModalOpen={setModalIsOpen}
@@ -131,7 +134,7 @@ const App = () => {
               formattedDate={formattedDate}
             />
           )}
-          {!notesContent.length ? (
+          {!state.notesContent.length ? (
             <div className='empty'>You haven't written any notes yet :(</div>
           ) : (
             ''

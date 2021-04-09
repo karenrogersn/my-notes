@@ -4,7 +4,7 @@ import './Note.scss';
 //date-fns library
 // import { formatDistance } from 'date-fns';
 
-const Note = ({ formattedDate, removeNote, editNote, note }) => {
+const Note = ({ formattedDate, removeNote, editNote, note, modalIsOpen, setIsModalOpen }) => {
   return (
     <div className='note-container'>
       <h2>{note.title}</h2>
@@ -13,7 +13,13 @@ const Note = ({ formattedDate, removeNote, editNote, note }) => {
       <p>Updated at {formattedDate}</p>
       {/* <p>Updated at {formatDistance(note.updated_at, new Date(), { addSuffix: true })}</p> */}
       <div className='icons-wrapper'>
-        <Icons removeNote={removeNote} editNote={editNote} note={note} />
+        <Icons
+          removeNote={removeNote}
+          editNote={editNote}
+          note={note}
+          modalIsOpen={modalIsOpen}
+          setIsModalOpen={setIsModalOpen}
+        />
       </div>
     </div>
   );

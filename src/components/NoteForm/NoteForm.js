@@ -2,22 +2,61 @@ import { useState } from 'react';
 import './NoteForm.scss';
 import marked from 'marked';
 import { sampleText } from './sampleText';
+import * as actionTypes from '../../store/actions';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
-const NoteForm = ({ saveNote, setIsModalOpen, currentNote }) => {
-  const [title, setTitle] = useState(currentNote ? currentNote.title : '');
-  const [subtitle, setSubtitle] = useState(currentNote ? currentNote.subtitle : '');
-  const [text, setText] = useState(currentNote ? currentNote.text : sampleText);
+const NoteForm = (/*{ saveNote, setIsModalOpen , currentNote  }*/) => {
+  //local UI state managed within the component. Don't need to use the global state that redux provides for this
+
+  const notesState = useSelector((state) => state);
+  console.log('redux state in noteForm: ', notesState.currentNote);
+
+  const [title, setTitle] = useState(notesState.currentNote ? notesState.currentNote.title : '');
+
+  const [subtitle, setSubtitle] = useState(
+    notesState.currentNote ? notesState.currentNote.subtitle : ''
+  );
+  const [text, setText] = useState(
+    notesState.currentNote ? notesState.currentNote.text : sampleText
+  );
+
+  const dispatch = useDispatch();
+
+  // const [data, setData] = useState({
+  //   title: notesState.currentNote ? currentNote.title : '',
+  //   subtitle: notesState.currentNote ? currentNote.subtitle : '',
+  //   text: notesState.currentNote ? currentNote.text : ''
+  // });
 
   const submitHandler = (e) => {
+    // const closeModal = notesState.modalisOpen;
     e.preventDefault();
-    saveNote(title, subtitle, text);
-
+    // e.persist();
+    dispatch({
+      type: actionTypes.SAVE_NOTE,
+      title: title,
+      subtitle: subtitle,
+      text: text
+    });
     //after adding a new note, the form is blank again
     setTitle('');
     setSubtitle('');
     setText('');
-    setIsModalOpen(false);
+    // closeModal;
   };
+
+  // const submitHandler = (e) => {
+  //   e.preventDefault();
+
+  //   saveNote(title, subtitle, text);
+
+  //   //after adding a new note, the form is blank again
+  //   setTitle('');
+  //   setSubtitle('');
+  //   setText('');
+  //   setIsModalOpen(false);
+  // };
   //render text function
   const renderText = (text) => {
     const __html = marked(text, { sanitize: true });
@@ -28,6 +67,7 @@ const NoteForm = ({ saveNote, setIsModalOpen, currentNote }) => {
     <div className='form-container'>
       <h2>Add a New Note</h2>
       <form onSubmit={submitHandler}>
+        {/* <form onSubmit={addNote}> */}
         <div className='inputs-wrapper'>
           <label htmlFor='title'>Title:</label>
           <input
