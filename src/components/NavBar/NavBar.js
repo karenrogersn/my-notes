@@ -2,13 +2,15 @@ import './NavBar.scss';
 import { useDispatch } from 'react-redux';
 import * as actionTypes from '../../store/actions';
 
-const NavBar = (/*{ createNote }*/) => {
+const NavBar = ({ setIsModalOpen /*createNote */ }) => {
   const dispatch = useDispatch();
 
   const createNote = () => {
+    console.log('creating note');
     dispatch({
       type: actionTypes.CREATE_NOTE
     });
+    setIsModalOpen(true);
   };
   return (
     <nav className='navbar'>

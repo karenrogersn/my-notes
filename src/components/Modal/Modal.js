@@ -9,54 +9,28 @@ import { useSelector } from 'react-redux';
 const Modal = ({
   modalIsOpen,
   setIsModalOpen,
-  saveNote,
-  editNote,
-  currentNote,
-  closeModalHandler,
-  readOnly,
-  notesContent,
-  removeNote,
-  formattedDate
+  closeModalHandler
+  // saveNote,
+  // editNote,
+  // currentNote,
+  // readOnly,
+  // notesContent,
+  // removeNote,
+  // formattedDate
 }) => {
   const state = useSelector((state) => state);
 
   let noteView = state.readOnly ? (
-    <Note
-      modalIsOpen={modalIsOpen}
-      setIsModalOpen={setIsModalOpen}
-      formattedDate={formattedDate}
-      removeNote={removeNote}
-      editNote={editNote}
-      notesContent={notesContent}
-      note={currentNote}
-    />
+    <Note modalIsOpen={modalIsOpen} setIsModalOpen={setIsModalOpen} note={state.currentNote} />
   ) : (
-    <NoteForm saveNote={saveNote} setIsModalOpen={setIsModalOpen} currentNote={currentNote} />
+    <NoteForm closeModalHandler={closeModalHandler} />
   );
   return (
     <>
-      <Backdrop
-      // modalIsOpen={modalIsOpen}
-      // setIsModalOpen={setIsModalOpen}
-      // closeModalHandler={closeModalHandler}
-      />
+      <Backdrop modalIsOpen={modalIsOpen} closeModalHandler={closeModalHandler} />
       <div className='modal'>
-        {/* <CloseButton closeModalHandler={closeModalHandler} /> */}
-        <CloseButton />
+        <CloseButton closeModalHandler={closeModalHandler} />
         {noteView}
-        {/* {readOnly ? (
-          <Note
-            modalIsOpen={modalIsOpen}
-            setIsModalOpen={setIsModalOpen}
-            formattedDate={formattedDate}
-            removeNote={removeNote}
-            editNote={editNote}
-            notesContent={notesContent}
-            note={currentNote}
-          />
-        ) : (
-          <NoteForm saveNote={saveNote} setIsModalOpen={setIsModalOpen} currentNote={currentNote} />
-        )} */}
       </div>
     </>
   );

@@ -5,7 +5,8 @@ import * as actionTypes from '../actions';
 // import useLocalStorage from '../../hooks/useLocalStorage';
 
 //id generator
-import { uuid } from 'uuid/v1';
+import { v1 as uuid } from 'uuid';
+// import uuid from 'uuid/v1';
 
 //date-fns library
 import { format } from 'date-fns';
@@ -19,19 +20,13 @@ const initialState = {
   // notesContent: useLocalStorage('notes', [])
   notesContent: [],
   currentNote: null,
-  // currentNote: {
-  //   title: 'Sample title',
-  //   subtitle: 'Sample subtitle',
-  //   text: 'Sample text'
-  // },
-  modalisOpen: false,
   readOnly: true
 };
 
 console.log('contents state: ', initialState.notesContent);
 
 //add new note
-const saveNote = (title, subtitle, text, state, action) => {
+const saveNote = (action, title, subtitle, text, state) => {
   let updatedNotes;
   if (state.currentNote) {
     //editing
@@ -68,7 +63,6 @@ const reducer = (state = initialState, action) => {
   const { type } = action;
   //same as doing
   // const type = action.type;
-  //const payload = aciton.payload;
   switch (type) {
     case actionTypes.SAVE_NOTE:
       return saveNote(action, action.title, action.subtitle, action.text, state);
@@ -76,7 +70,6 @@ const reducer = (state = initialState, action) => {
     case actionTypes.CREATE_NOTE:
       return {
         ...state,
-        modalIsOpen: true,
         readOnly: false
       };
 
@@ -84,14 +77,12 @@ const reducer = (state = initialState, action) => {
       const filteredArray = state.notesContent.filter((note) => note.id !== action.id);
       return {
         ...state,
-        notesContent: filteredArray,
-        modalIsOpen: false
+        notesContent: filteredArray
       };
 
     case actionTypes.EDIT_NOTE:
       return {
         ...state,
-        modalisOpen: true,
         readOnly: false,
         currentNote: state.notesContent.find((note) => note.id === action.id)
       };
@@ -99,14 +90,8 @@ const reducer = (state = initialState, action) => {
     case actionTypes.VIEW_NOTE:
       return {
         ...state,
-        modalisOpen: true,
+        readOnly: true,
         currentNote: state.notesContent.find((note) => note.id === action.id)
-      };
-
-    case actionTypes.CLOSE_MODAL:
-      return {
-        ...state,
-        modalisOpen: false
       };
 
     default:

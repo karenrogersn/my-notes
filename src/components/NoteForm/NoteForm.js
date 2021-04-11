@@ -3,31 +3,20 @@ import './NoteForm.scss';
 import marked from 'marked';
 import { sampleText } from './sampleText';
 import * as actionTypes from '../../store/actions';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
-const NoteForm = (/*{ saveNote, setIsModalOpen , currentNote  }*/) => {
+const NoteForm = ({ closeModalHandler }) => {
   //local UI state managed within the component. Don't need to use the global state that redux provides for this
 
-  const notesState = useSelector((state) => state);
-  console.log('redux state in noteForm: ', notesState.currentNote);
+  const notesState = useSelector((state) => state.currentNote);
+  console.log('redux state in noteForm: ', notesState);
 
-  const [title, setTitle] = useState(notesState.currentNote ? notesState.currentNote.title : '');
+  const [title, setTitle] = useState(notesState ? notesState.title : '');
 
-  const [subtitle, setSubtitle] = useState(
-    notesState.currentNote ? notesState.currentNote.subtitle : ''
-  );
-  const [text, setText] = useState(
-    notesState.currentNote ? notesState.currentNote.text : sampleText
-  );
+  const [subtitle, setSubtitle] = useState(notesState ? notesState.subtitle : '');
+  const [text, setText] = useState(notesState ? notesState.text : sampleText);
 
   const dispatch = useDispatch();
-
-  // const [data, setData] = useState({
-  //   title: notesState.currentNote ? currentNote.title : '',
-  //   subtitle: notesState.currentNote ? currentNote.subtitle : '',
-  //   text: notesState.currentNote ? currentNote.text : ''
-  // });
 
   const submitHandler = (e) => {
     // const closeModal = notesState.modalisOpen;
@@ -39,11 +28,11 @@ const NoteForm = (/*{ saveNote, setIsModalOpen , currentNote  }*/) => {
       subtitle: subtitle,
       text: text
     });
-    //after adding a new note, the form is blank again
     setTitle('');
     setSubtitle('');
     setText('');
-    // closeModal;
+    closeModalHandler();
+    //after adding a new note, the form is blank again
   };
 
   // const submitHandler = (e) => {

@@ -2,13 +2,14 @@ import './NoteCard.scss';
 import { useDispatch } from 'react-redux';
 import * as actionTypes from '../../store/actions';
 
-const NoteCard = ({ children, viewNote, note }) => {
+const NoteCard = ({ children, id, setModalIsOpen }) => {
   const dispatch = useDispatch();
 
-  const viewingNote = (e) => {
+  const viewingNote = () => {
     dispatch({
       type: actionTypes.VIEW_NOTE,
-      id: note.id
+      id: id,
+      openModal: setModalIsOpen(true)
     });
   };
 

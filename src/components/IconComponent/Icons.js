@@ -4,24 +4,25 @@ import pencil from '../../imgs/pencil.png';
 import { useDispatch } from 'react-redux';
 import * as actionTypes from '../../store/actions';
 
-const Icons = ({ removeNote, editNote, note, normalIconClass, modalIsOpen, setModalIsOpen }) => {
+const Icons = ({ id, normalIconClass, modalIsOpen, setModalIsOpen }) => {
   const dispatch = useDispatch();
 
-  const deleteNote = (e) => {
+  const deleteNote = () => {
     dispatch({
       type: actionTypes.REMOVE_NOTE,
-      id: note.id
+      id: id
     });
-    // if (modalIsOpen) {
-    //   setModalIsOpen(false);
-    // }
+    if (modalIsOpen) {
+      setModalIsOpen(false);
+    }
   };
 
-  const editingNote = (e) => {
+  const editingNote = () => {
     dispatch({
       type: actionTypes.EDIT_NOTE,
-      id: note.id
+      id: id
     });
+    setModalIsOpen(true);
   };
 
   return (
