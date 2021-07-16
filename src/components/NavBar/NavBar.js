@@ -1,22 +1,17 @@
+import React, { useContext } from 'react';
 import './NavBar.scss';
-import { useDispatch } from 'react-redux';
-import * as actionTypes from '../../store/actions';
+import NoteContext from '../../context/note-context';
 
-const NavBar = ({ setIsModalOpen /*createNote */ }) => {
-  const dispatch = useDispatch();
 
-  const createNote = () => {
-    console.log('creating note');
-    dispatch({
-      type: actionTypes.CREATE_NOTE
-    });
-    setIsModalOpen(true);
-  };
+const NavBar = () => {
+
+const noteCxt = useContext(NoteContext);
+
   return (
     <nav className='navbar'>
       <h1>My Notes app</h1>
       <div className='create'>
-        <button onClick={createNote}>New Note</button>
+        <button onClick={noteCxt.onCreatNote}>New Note</button>
       </div>
     </nav>
   );

@@ -1,43 +1,23 @@
+import React, { useContext } from 'react';
 import './Icons.scss';
 import rubish from '../../imgs/trash.png';
 import pencil from '../../imgs/pencil.png';
-import { useDispatch } from 'react-redux';
-import * as actionTypes from '../../store/actions';
+import NoteContext from '../../context/note-context';
 
-const Icons = ({ id, normalIconClass, modalIsOpen, setModalIsOpen }) => {
-  const dispatch = useDispatch();
-
-  const deleteNote = () => {
-    dispatch({
-      type: actionTypes.REMOVE_NOTE,
-      id: id
-    });
-    if (modalIsOpen) {
-      setModalIsOpen(false);
-    }
-  };
-
-  const editingNote = () => {
-    dispatch({
-      type: actionTypes.EDIT_NOTE,
-      id: id
-    });
-    setModalIsOpen(true);
-  };
+const Icons = ({ note, normalIconClass }) => {
+  const noteCtxt = useContext(NoteContext);
 
   return (
     <div className={normalIconClass ? 'icon--normal' : 'icon--large'}>
       <img
         src={pencil}
         alt='edit icon'
-        // onClick={(e) => editNote(note.id, e.stopPropagation())}
-        onClick={(e) => editingNote(e.stopPropagation())}
+        onClick={(e) => noteCtxt.onEditNote(note.id, e.stopPropagation())}
       />
       <img
         src={rubish}
         alt='delete icon'
-        // onClick={(e) => removeNote(note.id, e.stopPropagation())}
-        onClick={(e) => deleteNote(e.stopPropagation())}
+        onClick={(e) => noteCtxt.onRemoveNote(note.id, e.stopPropagation())}
       />
     </div>
   );

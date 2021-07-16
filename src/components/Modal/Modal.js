@@ -1,35 +1,27 @@
+import React, { useContext } from 'react';
 import './Modal.scss';
 import NoteForm from '../NoteForm/NoteForm';
 import Backdrop from '../Backdrop/Backdrop';
 import Note from '../Note/Note';
 import CloseButton from '../CloseButton/CloseButton';
 
-import { useSelector } from 'react-redux';
+import ModalContext from '../../context/modal-context';
 
-const Modal = ({
-  modalIsOpen,
-  setIsModalOpen,
-  closeModalHandler
-  // saveNote,
-  // editNote,
-  // currentNote,
-  // readOnly,
-  // notesContent,
-  // removeNote,
-  // formattedDate
-}) => {
-  const state = useSelector((state) => state);
+const Modal = ({ formattedDate }) => {
+  const modalCxt = useContext(ModalContext);
 
-  let noteView = state.readOnly ? (
-    <Note modalIsOpen={modalIsOpen} setIsModalOpen={setIsModalOpen} note={state.currentNote} />
+  let noteView = modalCxt.readOnly ? (
+    <Note
+    // formattedDate={formattedDate}
+    />
   ) : (
-    <NoteForm closeModalHandler={closeModalHandler} />
+    <NoteForm />
   );
   return (
     <>
-      <Backdrop modalIsOpen={modalIsOpen} closeModalHandler={closeModalHandler} />
+      <Backdrop />
       <div className='modal'>
-        <CloseButton closeModalHandler={closeModalHandler} />
+        <CloseButton />
         {noteView}
       </div>
     </>

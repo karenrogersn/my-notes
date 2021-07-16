@@ -1,23 +1,14 @@
+import React, { useContext } from 'react';
 import './NoteCard.scss';
-import { useDispatch } from 'react-redux';
-import * as actionTypes from '../../store/actions';
 
-const NoteCard = ({ children, id, setModalIsOpen }) => {
-  const dispatch = useDispatch();
+import NoteContext from '../../context/note-context';
 
-  const viewingNote = () => {
-    dispatch({
-      type: actionTypes.VIEW_NOTE,
-      id: id,
-      openModal: setModalIsOpen(true)
-    });
-  };
-
+const NoteCard = ({ children, note }) => {
+  const noteCtx = useContext(NoteContext);
   return (
     <article
       className='note-preview'
-      // onClick={(e) => viewNote(note.id, e.stopPropagation())}
-      onClick={(e) => viewingNote(e.stopPropagation())}
+      onClick={(e) => noteCtx.onViewNote(note.id, e.stopPropagation())}
     >
       {children}
     </article>

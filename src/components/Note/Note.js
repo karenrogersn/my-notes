@@ -1,16 +1,19 @@
+import React, { useContext } from 'react';
 import Icons from '../IconComponent/Icons';
 import './Note.scss';
+import NoteContext from '../../context/note-context';
 
-const Note = ({ note, modalIsOpen, setIsModalOpen }) => {
+const Note = () => {
+  const noteCtxt = useContext(NoteContext);
+
   return (
     <div className='note-container'>
-      <h2>{note.title}</h2>
-      <h3>{note.subtitle}</h3>
-      <div className='markup-conainer'>{note.text}</div>
-      <p>Updated at {note.updated_at}</p>
-      {/* <p>Updated at {formatDistance(note.updated_at, new Date(), { addSuffix: true })}</p> */}
+      <h2>{noteCtxt.currentNote.title}</h2>
+      <h3>{noteCtxt.currentNote.subtitle}</h3>
+      <div className='markup-conainer'>{noteCtxt.currentNote.text}</div>
+      <p>Updated at {noteCtxt.currentNote.updated_at}</p>
       <div className='icons-wrapper'>
-        <Icons note={note} modalIsOpen={modalIsOpen} setIsModalOpen={setIsModalOpen} />
+        <Icons note={noteCtxt.currentNote} />
       </div>
     </div>
   );

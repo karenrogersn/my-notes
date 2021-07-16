@@ -1,29 +1,25 @@
+import React, { useContext } from 'react';
 import Icons from '../IconComponent/Icons';
 import NoteCard from '../NoteCard/NoteCard';
 import './NoteList.scss';
+import NoteContext from '../../context/note-context';
 
-import { useSelector } from 'react-redux';
-
-const NoteList = ({ setModalIsOpen }) => {
-  const allNotesState = useSelector((state) => state.notesContent);
-  console.log('redux state: ', allNotesState);
+const NoteList = () => {
+  const noteCtxt = useContext(NoteContext);
 
   return (
     <div className='note-list'>
-      {allNotesState.map((note) => (
-        <NoteCard key={note.id} id={note.id} setModalIsOpen={setModalIsOpen}>
-          <h3>{note.title}</h3>
-          <p>{note.subtitle}</p>
-          <Icons normalIconClass id={note.id} />
-        </NoteCard>
-      ))}
+      {noteCtxt.notesContent.map((note) => {
+        return (
+          <NoteCard key={note.id} note={note}>
+            <h3>{note.title}</h3>
+            <p>{note.subtitle}</p>
+            <Icons normalIconClass note={note} />
+          </NoteCard>
+        );
+      })}
     </div>
   );
 };
 
 export default NoteList;
-// {/* <NoteCard key={note.id} note={note} notesContent={notesContent} viewNote={viewNote}>
-//   <h3>{note.title}</h3>
-//   <p>{note.subtitle}</p>
-//   <Icons normalIconClass removeNote={removeNote} editNote={editNote} note={note} />
-// </NoteCard> */}

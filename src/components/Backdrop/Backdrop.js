@@ -1,30 +1,38 @@
-import { useEffect } from 'react';
+import { useEffect, useContext, useCallback } from 'react';
 import './Backdrop.scss';
+import ModalContext from '../../context/modal-context';
 
-const Backdrop = ({ modalIsOpen, closeModalHandler }) => {
+const Backdrop = () => {
+  const modalCtxt = useContext(ModalContext);
+
   const modalClose = () => {
-    if (modalIsOpen) {
-      closeModalHandler();
+    if (modalCtxt.modalIsOpen) {
+      modalCtxt.onClosemodal();
     }
   };
 
   //closing the modal when Esc key is pressed
-  const escKeyDown = (e) => {
-    if (modalIsOpen) {
-      if (e.key !== 'Escape') return;
-      closeModalHandler();
-    }
-  };
+  const escKeyDown = useCallback(
+    (e) => {
+      if (modalCtxt.modalIsOpen) {
+        if (e.key !== 'Escape') return;
+        modalCtxt.onClosemodal();
+      }
+    },
+    [modalCtxt]
+  );
 
+  //run escKeyDown everytime the modalCtxt.modalIsOpen state changes
   useEffect(() => {
-    if (modalIsOpen) {
+    // console.log('run');
+    if (modalCtxt.modalIsOpen) {
       document.addEventListener('keydown', escKeyDown, true);
     } else {
       document.removeEventListener('keydown', escKeyDown, true);
     }
-  });
+  }, [modalCtxt.modalIsOpen, escKeyDown]);
 
-  return modalIsOpen ? <div className='backdrop' onClick={modalClose}></div> : null;
+  return modalCtxt.modalIsOpen ? <div className='backdrop' onClick={modalClose}></div> : null;
 };
 
 export default Backdrop;

@@ -1,11 +1,12 @@
+import React, { useContext } from 'react';
+import ModalContext from '../../context/modal-context';
 import './CloseButton.scss';
-// import { useDispatch } from 'react-redux';
-// import * as actionTypes from '../../store/actions';
 
-const CloseButton = ({ closeModalHandler }) => {
+const CloseButton = () => {
+  const modalCtxt = useContext(ModalContext);
   return (
     <div className='close-btn'>
-      <button onClick={closeModalHandler}>&times;</button>
+      <button onClick={modalCtxt.onClosemodal}>&times;</button>
     </div>
   );
 };
