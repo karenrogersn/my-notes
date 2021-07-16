@@ -5,12 +5,6 @@ import ModalContext from '../../context/modal-context';
 const Backdrop = () => {
   const modalCtxt = useContext(ModalContext);
 
-  const modalClose = () => {
-    if (modalCtxt.modalIsOpen) {
-      modalCtxt.onClosemodal();
-    }
-  };
-
   //closing the modal when Esc key is pressed
   const escKeyDown = useCallback(
     (e) => {
@@ -21,6 +15,12 @@ const Backdrop = () => {
     },
     [modalCtxt]
   );
+
+  const modalClose = (e) => {
+    if (modalCtxt.modalIsOpen) {
+      modalCtxt.onClosemodal();
+    }
+  };
 
   //run escKeyDown everytime the modalCtxt.modalIsOpen state changes
   useEffect(() => {

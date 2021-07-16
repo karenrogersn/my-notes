@@ -12,7 +12,6 @@ import ModalContext from './context/modal-context';
 import uuid from 'uuid/v1';
 
 const App = () => {
-  //local UI state managed within the component. Don't need to use the global state that redux provides for this.
   const [modalIsOpen, setModalIsOpen] = useState(false);
   //when a note is clicked it sets the state to that specific note
   const [currentNote, setCurrentNote] = useState(null);
@@ -47,19 +46,16 @@ const App = () => {
         return editedNote;
       });
       setNotesContent(updatedNotes);
-      // console.log('saving edited note');
     } else {
       //saving a new note
       setNotesContent([
         ...notesContent,
         { title, subtitle, text, id: uuid(), updated_at: formattedDate }
       ]);
-      // console.log('saving new note');
     }
   };
 
   const createNote = () => {
-    // console.log('open modal for new note');
     setCurrentNote(null);
     setModalIsOpen(true);
     setReadOnly(false);
@@ -70,21 +66,18 @@ const App = () => {
     if (modalIsOpen) {
       setModalIsOpen(false);
     }
-    // console.log('removing note');
   };
 
   const editNote = (id) => {
     setCurrentNote(notesContent.find((note) => note.id === id));
     setModalIsOpen(true);
     setReadOnly(false);
-    // console.log('editing note');
   };
 
   const viewNote = (id) => {
     setCurrentNote(notesContent.find((note) => note.id === id));
     setModalIsOpen(true);
     setReadOnly(true);
-    // console.log('viewing note');
   };
 
   return (
@@ -93,9 +86,7 @@ const App = () => {
         value={{
           //key = property from the createContext {} value = the state variable name
           currentNote: currentNote,
-          setCurrentNote: setCurrentNote,
           notesContent: notesContent,
-          setNotesContent: setNotesContent,
           onSaveNote: saveNote,
           onCreatNote: createNote,
           onRemoveNote: removeNote,
@@ -108,7 +99,6 @@ const App = () => {
             modalIsOpen: modalIsOpen,
             readOnly: readOnly,
             setModalIsOpen: setModalIsOpen,
-            setReadOnly: setReadOnly,
             onClosemodal: closeModalHandler
           }}
         >

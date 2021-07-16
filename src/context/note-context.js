@@ -3,10 +3,7 @@ import { createContext } from 'react';
 const NoteContext = createContext({
   currentNote: null,
   notesContent: [],
-  //including dummmy function for better ide autocopletion
-  setCurrentNote: () => {},
-  setNotesContent: () => {},
-  //also include other functions we've created
+  //including dummmy functions for better ide autocopletion
   onSaveNote: () => {},
   onCreatNote: () => {},
   onRemoveNote: () => {},

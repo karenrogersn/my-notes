@@ -5,7 +5,6 @@ const ModalContext = createContext({
   readOnly: true,
   //including dummmy function for better ide autocopletion
   setModalIsOpen: () => {},
-  setReadOnly: () => {},
   //also include other functions we've created
   onClosemodal: () => {}
 });
